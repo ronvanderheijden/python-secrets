@@ -1,0 +1,9 @@
+#!/usr/local/bin/python
+from os import environ
+from getpass import getpass
+from secrets import decrypt
+
+data = getpass('Enter secret: ')
+private_key = environ.get('SECRETS_PRIVATE_KEY')
+
+print(decrypt(private_key, data))

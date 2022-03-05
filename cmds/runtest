@@ -1,0 +1,11 @@
+#!/usr/local/bin/python
+from os import environ
+from secrets import encrypt, decrypt
+
+data = 'PLkd7HMeLki!@#/123'
+
+encrypted_data = encrypt(environ.get('SECRETS_PUBLIC_KEY'), data)
+decrypted_data = decrypt(environ.get('SECRETS_PRIVATE_KEY'), encrypted_data)
+
+# tests
+print('Test succesfull:', data == decrypted_data)

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+old_fingerprint=`gpg --fingerprint --with-colons secrets 2>/dev/null | awk -F: '/^fpr/ { print $10 }' | head -1`
+gpg --delete-secret-and-public-keys --batch --yes $old_fingerprint 2>/dev/null
+
+gpg --quick-generate-key --batch --passphrase '' secrets 2>/dev/null
+
+gpg --armor --export secrets > public.asc
+echo "public key is save in $PWD/public.asc"
+
+gpg --armor --export-secret-keys secrets > private.asc
+echo "private key is save in $PWD/private.asc"
+
+exit 0
